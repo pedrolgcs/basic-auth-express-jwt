@@ -1,4 +1,4 @@
-const User = require('../models/User.js')
+const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const validation = require('../../configs/joi/auth')
 
@@ -41,7 +41,7 @@ module.exports = {
     }
   },
   async show(req, res) {
-    const user = await User.findById(req.userId)
+    const user = await User.findById(req.user.id)
     return res.status(200).json(user)
   }
 }
