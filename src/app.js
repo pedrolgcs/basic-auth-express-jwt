@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 
 // create aplication
@@ -15,7 +16,8 @@ mongoose.connect(
 )
 
 // Middleware
-app.use(express.json())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // import Routes
 const authRoute = require('./routes/auth.js')

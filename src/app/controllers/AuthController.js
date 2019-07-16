@@ -1,13 +1,6 @@
 const User = require('../models/User.js')
-const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const validation = require('../../configs/joi/auth')
-
-function generateToken(params) {
-  return jwt.sign(params, process.env.JWT_SECRET, {
-    expiresIn: 86400
-  })
-}
 
 module.exports = {
   async store(req, res) {
@@ -19,7 +12,7 @@ module.exports = {
       const user = await User.create(value)
       user.password = undefined
       return res.status(200).json({
-        user, token: generateToken({ id: user.id })
+        user, token: user.generateToken(user.id)
       })
     } catch (err) {
       return res.status(400).send(err)
@@ -41,7 +34,7 @@ module.exports = {
       // set password to undefined for return
       user.password = undefined
       return res.status(200).json({
-        user, token: generateToken({ id: user.id })
+        user, token: user.generateToken(user.id)
       })
     } catch (err) {
       return res.status(500).json(err)
