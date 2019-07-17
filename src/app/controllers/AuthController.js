@@ -34,7 +34,7 @@ module.exports = {
       // set password to undefined for return
       user.password = undefined
       return res.status(200).json({
-        user, token: user.generateToken(user.id)
+        user, token: await user.generateToken(user.id)
       })
     } catch (err) {
       return res.status(500).json(err)

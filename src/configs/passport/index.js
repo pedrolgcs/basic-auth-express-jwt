@@ -8,7 +8,7 @@ const opts = {
 }
 
 module.exports = passport => {
-  passport.use(
+  passport.use('auth',
     new Strategy(opts, async (payload, done) => {
       try {
         const user = await User.findById(payload.id)

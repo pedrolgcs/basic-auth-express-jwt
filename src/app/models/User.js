@@ -31,8 +31,8 @@ userSchema.pre('save', async function(next) {
   this.password = hash
 })
 
-userSchema.methods.generateToken = function(id) {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+userSchema.methods.generateToken = async function(id) {
+  return await jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: 86400
   })
 }
